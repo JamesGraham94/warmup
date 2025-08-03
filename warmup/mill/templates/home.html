@@ -1,0 +1,61 @@
+<h1>Warm Up Program</h1>
+
+
+<ul> 
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Machine Name//</th>
+            <th scope="col">Owner//</th>
+            <th scope="col">X Limit//</th>
+            <th scope="col">Y Limit//</th>
+            <th scope="col">Z Limit//</th>
+            <th scope="col">Initial Feed//</th>
+            <th scope="col">Final Feed//</th>
+            <th scope="col">Initial Rpm//</th>
+            <th scope="col">Final RPM//</th>
+            <th scope="col">Coolant//</th>
+            <th scope="col">PK//</th>
+            <th scope="col">Edit Parameters//</th>
+            <th scope="col">Program//</th>
+            
+            
+          </tr>
+        </thead>
+      
+        <tbody>
+        <!-- Iterate over object_list -->
+
+       
+            
+                {% for mill in mills %}   
+                
+                  
+                    <!-- Display Objects -->
+                        <tr>
+                          <th scope="row"> {{ mill.machine_name }}</th> 
+                          <th scope="row"> {{ mill.owner }}</th> 
+                          <th scope="row"> {{ mill.x_limits }}</th>
+                          <th scope="row"> {{ mill.y_limits }}</th>
+                          <th scope="row"> {{ mill.z_limits }}</th>
+                          <td>{{ mill.feed_start }}</td>
+                          <td>{{ mill.feed_end }}</td>
+                          <td>{{ mill.rpm_start }}</td>
+                          <td>{{ mill.rpm_end }}</td>
+                          <td>{{ mill.coolant }}</td>
+                          <td>{{ mill.pk }}</td>
+                          <td><a href="{{ mill.get_absolute_url }}"><small>Edit Parameters</small></td></a>
+                          <td><a href="{% url 'fanuc' mill.pk %}"><small>Fanuc</small></td></a>
+                          <td><a href=""><small>Heidenhain</small></td></a>
+                          
+                      </tr>
+                  
+                     <!-- If object_list is empty  -->
+                 
+                  
+                {% endfor %}
+
+       
+        </tbody>
+      </table>
+</ul>

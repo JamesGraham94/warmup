@@ -1,0 +1,52 @@
+<h1>Fanuc program</h1>
+
+<div class="container">
+<p>O8000;<br>
+(Local Variables Initialization)<br>
+#1=0; initialiazed counter Incremental Feed<br>
+#9 = 60; Feed Start<br>
+#10 = 120 ; Feed End<br>
+#2=0; initialiazed counter Incremental Speed<br>
+#11 = 500; Spindle Start<br>
+#12 = 3500 ; Spindle End<br>
+
+#24=762; X<br>
+#25=508; Y<br>
+#26=-500;Z<br>
+#5021 = 50; G54 x axis<br>
+#5022 = 50; G54 y axis<br>
+#5023 = 50; G54 z axis<br>
+#11001 =75; Tool length 1 geometric compesation<br>
+
+<p>G10 L2 P1. X#5021 Y#5022 Z#5023 ; Set values G54 XYZ<br></p>
+<p>G21 G90 G40 G49 G80 (Metric, Absolute, Cutter Comp Cancel, Tool Length Comp Cancel, Canned Cycle Cancel)<br></p>
+<p>(G10.6 Z5)<br></p>
+<p>G91 G28 Z0.0 (Return Z to home position)<br></p>
+<p>N30 G91 G28 X0.0 Y0.0 (Return X and Y to home position)<br></p>
+<p>T1 M06 (Tool change to Tool 1)<br></p>
+<p>G43 H#11001 Z0.1<br></p>
+<p>M08<br></p>
+
+
+G10.6 Z50.;<br>
+G00 G28 G91 Z0.;<br>
+G00 G28 G91 X0. Y0.;<br>
+
+
+WHILE [#1 LT #10 ] DO 1;[Outer Loop]<br>
+#2=0: Reset Counter<br>
+WHILE [#2 LT #12 ] DO 2;[Inner Loop]<br>
+G01 G91 X#24. Y#25 Z#26  F#9+#1. M3 S#19+#2;(travel limit)<br>
+X-#24. Y-#25  Z-#26<br>
+
+#2=#2+500<br>
+END 2;[Inner Loop]<br>
+
+#1=#1+10<br>
+END 1;[Outer Loop]<br>
+
+M5<br>
+M30<br>
+</p>
+</div>
+
