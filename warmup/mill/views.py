@@ -27,12 +27,13 @@ class UpdateFormView(UpdateView):
 
 
 def fanuc(request,pk):
-
+	# Function that queries database and create Gcode for Fanuc control  by python string with embed variables from database
 	id=pk
 	mills = Mill.objects.filter(id=pk)
 	mills_instance = Mill.objects.get(id=pk)
 	obj = get_object_or_404(Mill,id=pk)
 
+	# get Values from queried object instance
 	feed_start = mills_instance.feed_start 
 	feed_end = mills_instance.feed_end 
 	rpm_start = mills_instance.rpm_start 
@@ -44,6 +45,7 @@ def fanuc(request,pk):
 
 	coolant = mills_instance.coolant
 
+	# conditions to that checks if coolant is True or not.
 	if coolant :
 		m8 = "M8"
 	else:
@@ -102,12 +104,13 @@ def fanuc(request,pk):
 
 
 def heidenhain(request,pk):
-
+	# Function that queries database and create Gcode for heidenhain control  by python string with embed variables from database
 	id=pk
 	mills = Mill.objects.filter(id=pk)
 	mills_instance = Mill.objects.get(id=pk)
 	obj = get_object_or_404(Mill,id=pk)
 
+	# get Values from queried object instance
 	feed_start = mills_instance.feed_start
 	feed_end = mills_instance.feed_end
 	rpm_start = mills_instance.rpm_start
@@ -119,6 +122,7 @@ def heidenhain(request,pk):
 
 	coolant = mills_instance.coolant
 
+	# conditions to that checks if coolant is True or not.
 	if coolant :
 		m8 = "M8"
 		m9 = "M9"
