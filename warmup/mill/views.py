@@ -48,8 +48,10 @@ def fanuc(request,pk):
 	# conditions to that checks if coolant is True or not.
 	if coolant :
 		m8 = "M8"
+		m9 = "M9"
 	else:
-		m8= "" 
+		m8 = "" 
+		m9 = ""
 
 
 	
@@ -87,6 +89,7 @@ def fanuc(request,pk):
 			X-#24. Y-#25  Z-#26
 			#1=#1+10
 			END 2;[Outer Loop]
+			{m9}
 			M5
 			M30
 			"""
