@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-kzx5et+nm$k%=hc^7x&w6i!3p*iu_0hh_hs!%igtcg4b-9z$&&'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'warmup.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'warmup',
-       'USER':'postgres',
-       'PASSWORD':'123456',
+       'NAME': 'XXXXXX',
+       'USER':'XXXXXX',
+       'PASSWORD':'XXXXXXX',
        
 
    }
