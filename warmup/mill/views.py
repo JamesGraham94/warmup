@@ -99,3 +99,104 @@ def fanuc(request,pk):
 			}
 	
 	return render(request,'fanuc.html',context)
+
+
+def heidenhain(request,pk):
+
+	id=pk
+	mills = Mill.objects.filter(id=pk)
+	mills_instance = Mill.objects.get(id=pk)
+	obj = get_object_or_404(Mill,id=pk)
+
+	feed_start = mills_instance.feed_start
+	feed_end = mills_instance.feed_end
+	rpm_start = mills_instance.rpm_start
+	rpm_end = mills_instance.rpm_end
+
+	x_limits = mills_instance.x_limits
+	y_limits = mills_instance.y_limits
+	z_limits = mills_instance.z_limits
+
+	coolant = mills_instance.coolant
+
+	if coolant :
+		m8 = "M8"
+		m9 = "M9"
+	else:
+		m8=  "  "
+		m9 = "  "
+
+
+
+	program = f"""
+			O8000;
+			BEGIN PGM WARMUP MM
+            BLK FORM 0.1 Z X+{x_limits} Y+{y_limits} Z+{z_limits} ; Define virtual machine envelope for simulation User Defined Limits
+            TOOL CALL 1 Z S5000 ; Call a dummy tool, set initial spindle speed
+
+            ; Define variables for warm-up parameters
+            FN 1: Q1 = {rpm_start} ; Initial spindle speed (RPM) USER Defined
+            FN 1: Q2 = {rpm_end} ; Maximum spindle speed (RPM) USER Defined
+            FN 1: Q3 = 100 ; Spindle speed increment (RPM)
+            FN 1: Q4 = {feed_start} ; Axis feed rate (mm/min)  USER Defined
+            FN 1: Q10 ={feed_end} ; Axis feed rate (mm/min) USER Defined
+            FN 1: Q11 = 300; Feed Rate increment (mm/min)
+            FN 1: Q5 = 1000 ; Max axis travel (mm) - Adjusted for machine size
+            FN 1: Q6 = 50 ; Axis travel increment (mm)
+            FN 1: Q7 = {x_limits} ;Axis Travel limit X (mm) USER Defined
+            FN 1: Q8 = {y_limits} ;Axis Travel limit y (mm) USER Defined
+            FN 1: Q9 = {z_limits} ;Axis Travel limit z (mm) USER Defined
+
+
+            ; Spindle warm-up cycle
+            LBL 1
+            FN 0: Q1 = Q1 + Q3 ; Increment spindle speed
+            S Q1 ; Set new spindle speed
+            DWELL 0.5 ; Dwell for 0.5 seconds
+            FN 2: IF Q1 LT Q2 GOTO LBL 1 ; Loop until max speed is reached
+            S Q2 ; Maintain max speed for a period
+            DWELL 60 ; Dwell for 60 seconds at max speed
+            S 0 ; Stop spindle
+
+            ; Axis warm-up cycle
+            LBL 2
+            FN 0: Q4 = Q4 + Q11 ; Set axis feed rate
+
+            ; X-axis movement
+            {m8} ; Turn on Coolant User Defined
+            LX +Q7 FQ4 ; Move X to positive limit
+            LX -Q7 FQ4 ; Move X to negative limit
+            {m9} ; User Defined
+
+
+            ; Y-axis movement
+            {m8} ; Turn on Coolant User Defined
+            LY +Q8 FQ4 ; Move Y to positive limit
+            LY -Q8 FQ4 ; Move Y to negative limit
+            {m9} ; turn on Coolant User Defined
+
+
+            ; Z-axis movement
+            {m8} ; Turn on Coolant User Defined
+            LZ +Q9 FQ4 ; Move Z to positive limit
+            LZ -Q9 FQ4 ; Move Z to negative limit
+            {m9} ; turn on Coolant User Defined
+            FN 2: IF Q4 LT Q11 GOTO LBL 2 ; Loop until Max Feed Rate is Reached
+
+            ; Return to home position
+            L Z+0 R0 FMAX ; Rapid Z to home
+            L X+0 Y+0 R0 FMAX ; Rapid X and Y to home
+
+            END PGM WARMUP MM
+			"""
+
+
+
+	context={ 'id':id,'mills':mills,'obj':obj, 'feed_start':feed_start,
+			  'feed_end':feed_end, 'rpm_start':rpm_start,'rpm_end':rpm_end,
+			  'x_limits':x_limits,'y_limits':y_limits,'z_limits':y_limits,
+			  'coolant':coolant, 'm8':m8,
+		      'program':program,
+			}
+
+	return render(request,'heidenhain.html',context)
