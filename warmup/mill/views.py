@@ -73,7 +73,7 @@ def fanuc(request,pk):
 			G21 G90 G40 G49 G80 (Metric, Absolute, Cutter Comp Cancel, Tool Length Comp Cancel, Canned Cycle Cancel)
 			(G10.6 Z5)
 			G91 G28 Z0.0 (Return Z to home position)
-			N30 G91 G28 X0.0 Y0.0 (Return X and Y to home position)
+			N30  G28 X0.0 Y0.0 (Return X and Y to home position)
 			T1 M06 (Tool change to Tool 1)
 			G43 H#11001 Z0.1 
 			{m8}
@@ -83,7 +83,7 @@ def fanuc(request,pk):
   			#2 = #2 + 500 (INCREMENT SPINDLE SPEED)
 			END 1
 			WHILE [#1 LT #10 ] DO 2;[Outer Loop]
-			G01 G91 X#24. Y#25 Z#26  F#9+#1. M3 S#11;(travel limit)
+			G01  X#24. Y#25 Z#26  F#9+#1. M3 S#11;(travel limit)
 			X-#24. Y-#25  Z-#26
 			#1=#1+10
 			END 2;[Outer Loop]
