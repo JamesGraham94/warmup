@@ -46,7 +46,7 @@
                           <td>{{ mill.pk }}</td>
                           <td><a href="{{ mill.get_absolute_url }}"><small>Edit Parameters</small></td></a>
                           <td><a href="{% url 'fanuc' mill.pk %}"><small>Fanuc</small></td></a>
-                          <td><a href=""><small>Heidenhain</small></td></a>
+                          <td><a href="{% url 'heidenhain' mill.pk %}"><small>Heidenhain</small></td></a>
                           
                       </tr>
                   
