@@ -7,7 +7,7 @@ from .forms import UpdateForm
 from django.urls import reverse_lazy
 
 
-#https://www.w3schools.com/python/python_strings_format.asp
+
 
 # Create your views here.
 def home(request):
