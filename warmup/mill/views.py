@@ -153,9 +153,12 @@ def heidenhain(request,pk):
             FN 1: Q7 = {x_limits} ;Axis Travel limit X (mm) USER Defined
             FN 1: Q8 = {y_limits} ;Axis Travel limit y (mm) USER Defined
             FN 1: Q9 = {z_limits} ;Axis Travel limit z (mm) USER Defined
+			FN 1: Q12 = TBD ; G54 X
+            FN 1: Q13 = TBD ; G54 Y
+            FN 1: Q14 = TBD ; G54 Z
 			FN 1: Q114 = 100 ; Active tool lenght
 
-
+			G54 X=Q12 Y=Q13 Z=Q14  ; Applies the values of Q10, Q11, and Q12 to the G54 work offset
             TOOL CALL 1 Z S5000 DL+Q114 ; Call a dummy tool, set initial spindle speed
 
 
@@ -192,7 +195,7 @@ def heidenhain(request,pk):
             LZ +Q9 FQ4 ; Move Z to positive limit
             LZ -Q9 FQ4 ; Move Z to negative limit
             {m9} ; turn on Coolant User Defined
-            FN 2: IF Q4 LT Q11 GOTO LBL 2 ; Loop until Max Feed Rate is Reached
+            FN 2: IF Q4 LT Q10 GOTO LBL 2 ; Loop until Max Feed Rate is Reached
 
             ; Return to home position
             L Z+0 R0 FMAX ; Rapid Z to home
