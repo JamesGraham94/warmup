@@ -139,7 +139,7 @@ def heidenhain(request,pk):
 			O8000;
 			BEGIN PGM WARMUP MM
             BLK FORM 0.1 Z X+{x_limits} Y+{y_limits} Z+{z_limits} ; Define virtual machine envelope for simulation User Defined Limits
-            TOOL CALL 1 Z S5000 ; Call a dummy tool, set initial spindle speed
+            
 
             ; Define variables for warm-up parameters
             FN 1: Q1 = {rpm_start} ; Initial spindle speed (RPM) USER Defined
@@ -153,6 +153,10 @@ def heidenhain(request,pk):
             FN 1: Q7 = {x_limits} ;Axis Travel limit X (mm) USER Defined
             FN 1: Q8 = {y_limits} ;Axis Travel limit y (mm) USER Defined
             FN 1: Q9 = {z_limits} ;Axis Travel limit z (mm) USER Defined
+			FN 1: Q114 = 100 ; Active tool lenght
+
+
+            TOOL CALL 1 Z S5000 DL+Q114 ; Call a dummy tool, set initial spindle speed
 
 
             ; Spindle warm-up cycle
