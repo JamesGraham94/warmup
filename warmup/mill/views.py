@@ -84,11 +84,11 @@ def fanuc(request,pk):
   			G04 P1000 (DWELL FOR 1 SECOND)
   			#2 = #2 + 500 (INCREMENT SPINDLE SPEED)
 			END 1
-			WHILE [#1 LT #10 ] DO 2;[Outer Loop]
+			WHILE [#1 LT #10 ] DO 2;
 			G01  X#24. Y#25 Z#26  F#9+#1. M3 S#11;(travel limit)
 			X-#24. Y-#25  Z-#26
 			#1=#1+10
-			END 2;[Outer Loop]
+			END 2;
 			{m9}
 			M5
 			M30
