@@ -63,13 +63,13 @@ def fanuc(request,pk):
 			#10 = {feed_end} ; Feed End
 			#2=0; initialized  counter Incremental Speed
 			#11 = {rpm_start}; Spindle Start
-			#12 = {rpm_start}; Spindle End
+			#12 = {rpm_end}; Spindle End
 			#24=  {x_limits}; X axis
 			#25=  {y_limits}; Y axis
 			#26=- {z_limits}; Z axis
-			#5021 = 50; G54 x axis
-			#5022 = 50; G54 y axis
-			#5023 = 50; G54 z axis
+			#5021 = 50; G54 X axis
+			#5022 = 50; G54 Y axis
+			#5023 = 50; G54 Z axis
 			#11001 =75; Tool length 1 geometric compesantion
 			G10 L2 P1. X#5021 Y#5022 Z#5023 ; Set values G54 XYZ
 			G21 G90 G40 G49 G80 (Metric, Absolute, Cutter Comp Cancel, Tool Length Comp Cancel, Canned Cycle Cancel)
@@ -99,7 +99,7 @@ def fanuc(request,pk):
 	context={ 'id':id,'mills':mills,'obj':obj, 'feed_start':feed_start,
 			  'feed_end':feed_end, 'rpm_start':rpm_start,'rpm_end':rpm_end, 
 			  'x_limits':x_limits,'y_limits':y_limits,'z_limits':y_limits,
-			  'coolant':coolant, 'm8':m8,	
+			  'coolant':coolant, 'm8':m8, 'm9':m9,
 		      'program':program,
 			}
 	
@@ -209,7 +209,7 @@ def heidenhain(request,pk):
 	context={ 'id':id,'mills':mills,'obj':obj, 'feed_start':feed_start,
 			  'feed_end':feed_end, 'rpm_start':rpm_start,'rpm_end':rpm_end,
 			  'x_limits':x_limits,'y_limits':y_limits,'z_limits':y_limits,
-			  'coolant':coolant, 'm8':m8,
+			  'coolant':coolant, 'm8':m8, 'm9':m9,
 		      'program':program,
 			}
 
