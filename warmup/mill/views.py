@@ -61,7 +61,7 @@ def fanuc(request,pk):
 			#1=0; initialized  counter Incremental Feed
 			#9 =  {feed_start}; Feed Start
 			#10 = {feed_end} ; Feed End
-			#2=10; initialized  counter Incremental Speed
+			#2=0; initialized  counter Incremental Speed
 			#11 = {rpm_start}; Spindle Start
 			#12 = {rpm_end}; Spindle End
 			#24=  {x_limits}; X axis
