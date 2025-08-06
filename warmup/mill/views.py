@@ -165,16 +165,17 @@ def heidenhain(request,pk):
             ; Spindle warm-up cycle
             LBL 1
             FN 0: Q1 = Q1 + Q3 ; Increment spindle speed
-            S Q1 ; Set new spindle speed
+            S Q1 M3; Set new spindle speed
             DWELL 0.5 ; Dwell for 0.5 seconds
             FN 2: IF Q1 LT Q2 GOTO LBL 1 ; Loop until max speed is reached
-            S Q2 ; Maintain max speed for a period
+            S Q2 M3; Maintain max speed for a period
             DWELL 60 ; Dwell for 60 seconds at max speed
             S 0 ; Stop spindle
 
             ; Axis warm-up cycle
             LBL 2
             FN 0: Q4 = Q4 + Q11 ; Set axis feed rate
+			S Q1 M3; Set spindle Speed
 
             ; X-axis movement
             {m8} ; Turn on Coolant User Defined
