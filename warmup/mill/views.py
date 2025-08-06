@@ -153,9 +153,9 @@ def heidenhain(request,pk):
             FN 1: Q7 = {x_limits} ;Axis Travel limit X (mm) USER Defined
             FN 1: Q8 = {y_limits} ;Axis Travel limit y (mm) USER Defined
             FN 1: Q9 = {z_limits} ;Axis Travel limit z (mm) USER Defined
-			FN 1: Q12 = TBD ; G54 X
-            FN 1: Q13 = TBD ; G54 Y
-            FN 1: Q14 = TBD ; G54 Z
+			FN 1: Q12 = 50 ; G54 X
+            FN 1: Q13 = 50 ; G54 Y
+            FN 1: Q14 = 50 ; G54 Z
 			FN 1: Q114 = 100 ; Active tool lenght
 
 			G54 X=Q12 Y=Q13 Z=Q14  ; Applies the values of Q10, Q11, and Q12 to the G54 work offset
