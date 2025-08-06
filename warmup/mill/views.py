@@ -147,7 +147,7 @@ def heidenhain(request,pk):
             FN 1: Q3 = 100 ; Spindle speed increment (RPM)
             FN 1: Q4 = {feed_start} ; Axis feed rate (mm/min)  USER Defined
             FN 1: Q10 ={feed_end} ; Axis feed rate (mm/min) USER Defined
-            FN 1: Q11 = 300; Feed Rate increment (mm/min)
+            FN 1: Q11 = 10; Feed Rate increment (mm/min)
             FN 1: Q5 = 1000 ; Max axis travel (mm) - Adjusted for machine size
             FN 1: Q6 = 50 ; Axis travel increment (mm)
             FN 1: Q7 = {x_limits} ;Axis Travel limit X (mm) USER Defined
